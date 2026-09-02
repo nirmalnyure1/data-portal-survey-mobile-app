@@ -4,6 +4,7 @@ import 'package:data_portal_survey/common/theme/app_spacing.dart';
 import 'package:data_portal_survey/common/theme/theme_colors.dart';
 import 'package:data_portal_survey/common/widgets/page_wrapper.dart';
 import 'package:data_portal_survey/common/theme/app_shapes.dart';
+import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
 
 @RoutePage()
 class TermsConditionsScreen extends StatelessWidget {
@@ -13,52 +14,37 @@ class TermsConditionsScreen extends StatelessWidget {
     _TermsSection(
       title: '1. Acceptance of Terms',
       body:
-          'By using the Syanko Rolls mobile app or website, you agree to these Terms & Conditions. If you do not agree with any part of these terms, please discontinue use of our services.',
+          'By using the Data Portal Survey mobile app, you agree to these Terms & Conditions. If you do not agree, please discontinue use of the app.',
     ),
     _TermsSection(
-      title: '2. Ordering & Direct Order Cut-off',
+      title: '2. Survey Collection',
       body:
-          'Our last direct order time is 7:30 PM each day. Once direct orders are closed, you can still place orders through our delivery partners: Pathao, Foodmandu and Bhoj.',
+          'The app is intended for authorized field workers and survey collectors. You must only collect data you are assigned or permitted to gather, and follow applicable organizational policies.',
     ),
     _TermsSection(
-      title: '3. Pricing',
+      title: '3. Account Security',
       body:
-          'All menu prices are listed in NRS and may change without prior notice. Promotional offers and franchise-exclusive prices may vary by outlet.',
+          'You are responsible for keeping your login credentials secure. Do not share your account with others. Notify your administrator if you suspect unauthorized access.',
     ),
     _TermsSection(
-      title: '4. Order Confirmation',
+      title: '4. Data Accuracy',
       body:
-          'An order is confirmed only after you receive an in-app or SMS confirmation. We reserve the right to cancel any order due to unavailability of items, payment issues or other operational reasons.',
+          'You agree to enter survey responses accurately and honestly. Submitting false or misleading data may violate your organization\'s policies and applicable law.',
     ),
     _TermsSection(
-      title: '5. Delivery',
+      title: '5. Intellectual Property',
       body:
-          'Delivery is available through our partner platforms — Pathao, Foodmandu and Bhoj. Delivery times, fees and availability are governed by the chosen partner and your selected outlet.',
+          'The Data Portal Survey name, logo, app design and related content are protected. Reuse without written permission is not allowed.',
     ),
     _TermsSection(
-      title: '6. Cancellation & Refunds',
-      body:
-          'Orders can be cancelled before preparation begins. Once an item is being prepared, cancellations are not possible. Refunds, where applicable, are processed back through your original payment method.',
-    ),
-    _TermsSection(
-      title: '7. Franchise Partnerships',
-      body:
-          'Franchise applications are reviewed individually. Approval, terms and obligations are governed by a separate franchise agreement entered into with Syanko Rolls.',
-    ),
-    _TermsSection(
-      title: '8. Intellectual Property',
-      body:
-          'The Syanko Rolls name, logo, menu, recipes and all related content are the property of Syanko Rolls. Reuse without written permission is not allowed.',
-    ),
-    _TermsSection(
-      title: '9. Changes to These Terms',
+      title: '6. Changes to These Terms',
       body:
           'We may update these Terms from time to time. Continued use of the app after changes implies acceptance of the revised Terms.',
     ),
     _TermsSection(
-      title: '10. Contact',
+      title: '7. Contact',
       body:
-          'For any questions about these Terms, please reach out through the Help & Support section in the app or visit our website.',
+          'For questions about these Terms, reach out through the Help & Support section in the app.',
     ),
   ];
 
@@ -78,7 +64,7 @@ class TermsConditionsScreen extends StatelessWidget {
                 borderRadius: AppShapes.radiusLg,
               ),
               child: const Text(
-                'Please read these Terms & Conditions carefully before using the Syanko Rolls app, website or any of our outlets.',
+                'Please read these Terms & Conditions carefully before using Data Portal Survey.',
                 style: TextStyle(
                   fontSize: 14,
                   height: 1.5,
@@ -91,7 +77,7 @@ class TermsConditionsScreen extends StatelessWidget {
               width: double.infinity,
               padding: AppInsets.all16,
               decoration: BoxDecoration(
-                color: ThemeColors.pageBackGroundColor,
+                color: ThemeColors.cardBackGroundColor,
                 borderRadius: AppShapes.radiusLg,
               ),
               child: Column(
@@ -108,15 +94,15 @@ class TermsConditionsScreen extends StatelessWidget {
                               style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
-                                color: ThemeColors.black,
+                                color: SurveyTheme.primary,
                               ),
                             ),
-                            const SizedBox(height: AppSpacing.s6),
+                            const SizedBox(height: AppSpacing.s8),
                             Text(
                               section.body,
                               style: const TextStyle(
-                                fontSize: 13,
-                                height: 1.55,
+                                fontSize: 14,
+                                height: 1.5,
                                 color: ThemeColors.darkGrey,
                               ),
                             ),
@@ -127,17 +113,6 @@ class TermsConditionsScreen extends StatelessWidget {
                     .toList(),
               ),
             ),
-            const SizedBox(height: AppSpacing.s20),
-            const Center(
-              child: Text(
-                'Last updated: 2026',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: ThemeColors.lightTextColor,
-                ),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.s20),
           ],
         ),
       ),

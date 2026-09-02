@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:data_portal_survey/common/theme/app_spacing.dart';
-import 'package:data_portal_survey/common/theme/theme.dart';
+import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
 
 class PageIndicator extends StatelessWidget {
   final int count;
@@ -25,8 +25,8 @@ class PageIndicator extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSpacing.s4),
             color: currentIndex == index
-                ? ThemeColors.black
-                : ThemeColors.lightGrey,
+                ? SurveyTheme.primary
+                : SurveyTheme.outlineVariant,
           ),
         );
       }),

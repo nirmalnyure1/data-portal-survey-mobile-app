@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gif_view/gif_view.dart';
 import 'package:data_portal_survey/common/constants/constant_assets.dart';
 import 'package:data_portal_survey/common/storage/secure_storage.dart';
 import 'package:data_portal_survey/common/widgets/status_bar_wrapper.dart';
@@ -10,9 +9,9 @@ import 'package:data_portal_survey/features/engagement/bloc/track_engagement_cub
 import 'package:data_portal_survey/features/engagement/resource/engagement_repository.dart';
 import 'package:data_portal_survey/features/onboard/bloc/startup_cubit.dart';
 import 'package:data_portal_survey/features/onboard/bloc/startup_state.dart';
+import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
 import 'package:data_portal_survey/navigation/navigation.dart';
 import 'package:data_portal_survey/features/auth/resource/auth_repository.dart';
-import 'package:data_portal_survey/common/theme/theme.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {
@@ -23,18 +22,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _showLoader = false;
-
   void _trackEngagementIfLoggedIn(BuildContext context) {
     if (!context.read<StartupCubit>().hasSession) return;
     context.read<TrackEngagementCubit>().trackAppOpenIfNeeded(
       isAuthenticated: true,
     );
-  }
-
-  void _onGifFinished() {
-    if (!mounted || _showLoader) return;
-    setState(() => _showLoader = true);
   }
 
   Future<void> _delayBeforeNavigation() async {
@@ -45,8 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return IosUpdateWrapper(
       child: StatusBarWrapper(
-        isDark: true,
-        statusBarColor: ThemeColors.primaryColor,
+        isDark: false,
+        statusBarColor: SurveyTheme.surfaceLowest,
         child: MultiBlocProvider(
           providers: [
             BlocProvider(
@@ -95,23 +87,18 @@ class _SplashScreenState extends State<SplashScreen> {
               }
             },
             child: Scaffold(
-              backgroundColor: ThemeColors.primaryColor,
+              backgroundColor: SurveyTheme.surfaceLowest,
               body: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    GifView.asset(
-                      Assets.loadingGif,
+                    Image.asset(
+                      Assets.dataPortalLogo,
+                      height: 120,
                       fit: BoxFit.contain,
-                      loop: false,
-                      width: 250,
-                      height: 250,
-                      onFinish: _onGifFinished,
                     ),
-                    if (_showLoader) ...[
-                      const SizedBox(height: 24),
-                      const _SplashDotsLoader(),
-                    ],
+                    const SizedBox(height: 32),
+                    const _SplashDotsLoader(),
                   ],
                 ),
               ),
@@ -173,7 +160,7 @@ class _SplashDotsLoaderState extends State<_SplashDotsLoader>
                     width: 8,
                     height: 8,
                     decoration: const BoxDecoration(
-                      color: ThemeColors.pageBackGroundColor,
+                      color: SurveyTheme.primary,
                       shape: BoxShape.circle,
                     ),
                   ),

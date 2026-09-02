@@ -74,10 +74,8 @@ def resolved_java_home
     repo_root = File.expand_path("../..", __dir__)
 
     preferred = [
-      "syanko-project-3cf065d61df7.json",
-      "syanko-play.json",
-      "syanko-play-store.json",
-      "play-store-credentials.json"
+      "play-store-credentials.json",
+      "data-portal-play-store.json",
     ]
 
     preferred.each do |name|
@@ -85,8 +83,7 @@ def resolved_java_home
       return candidate if File.exist?(candidate)
     end
 
-    # Prefer syanko-play-*.json if present.
-    Dir[File.join(repo_root, "syanko-play-*.json")].each do |candidate|
+    Dir[File.join(repo_root, "play-store-*.json")].each do |candidate|
       return candidate if File.exist?(candidate)
     end
 

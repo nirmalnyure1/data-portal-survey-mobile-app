@@ -15,8 +15,8 @@ class LocalNotificationService {
   static final LocalNotificationService instance = LocalNotificationService._();
 
   static const String highPriorityChannelId = 'dataportalsurvey_high_priority';
-  static const String defaultChannelId = 'syanko_default';
-  static const String promotionsChannelId = 'syanko_promotions';
+  static const String defaultChannelId = 'dataportalsurvey_default';
+  static const String promotionsChannelId = 'dataportalsurvey_alerts';
   static const String backendDefaultChannelId = 'default';
 
   final FlutterLocalNotificationsPlugin _plugin =

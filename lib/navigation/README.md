@@ -18,7 +18,7 @@ lib/navigation/
 ### Import
 
 ```dart
-import 'package:syanko/navigation/navigation.dart';
+import 'package:data_portal_survey/navigation/navigation.dart';
 ```
 
 ### Basic Navigation

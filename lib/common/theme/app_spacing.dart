@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:data_portal_survey/common/theme/app_colors.dart';
 
 /// Centralized spacing/padding tokens for the app.
 ///
@@ -117,6 +118,13 @@ abstract final class AppRadius {
   static const double r18 = AppSpacing.s18;
   static const double r20 = AppSpacing.s20;
   static const double r24 = AppSpacing.s24;
+  static const double r9 = AppSpacing.s9;
+
+  /// Survey control corner radius (globals.css).
+  static const double control = AppMetrics.controlRadius;
+
+  /// Survey card corner radius.
+  static const double card = AppMetrics.cardRadius;
 }
 
 /// Convenience `BorderRadius` values to keep radius usage consistent.

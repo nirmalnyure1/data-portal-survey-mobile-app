@@ -51,8 +51,7 @@ app.*.map.json
 .env.local
 
 # Play Console / Fastlane credentials (never commit service-account keys)
-syanko-play*.json
-syanko-project-*.json
+play-store*.json
 play-store-credentials.json
 *-play-store*.json
 android/fastlane/play-store-credentials.json

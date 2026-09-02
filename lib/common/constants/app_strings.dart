@@ -116,13 +116,13 @@ class AppStrings {
   static const String onboardSubtitle2 =
       'Stay on top of assigned surveys and submit data even when you are on the go.';
   static const String onboardSubtitle3 =
-      'Sign in to start collecting and syncing survey data.';
+      'Sign in to start collecting and syncing survey data with Data Portal.';
 
-  static const String onboardTitle1 = 'Collect Data,';
-  static const String onboardHighlight1 = 'Faster';
-  static const String onboardTitle1Suffix = ' Than Ever';
-  static const String onboardTitle2 = 'Stay Organized';
-  static const String onboardTitle2Suffix = 'In\nThe Field';
-  static const String onboardTitle3 = 'Ready When';
-  static const String onboardTitle3Suffix = 'You Are';
+  static const String onboardTitle1 = 'Welcome to';
+  static const String onboardHighlight1 = 'Data Portal';
+  static const String onboardTitle1Suffix = ' Survey';
+  static const String onboardTitle2 = 'Field surveys';
+  static const String onboardTitle2Suffix = ' made simple';
+  static const String onboardTitle3 = 'Ready to';
+  static const String onboardTitle3Suffix = ' collect data';
 }

@@ -178,7 +178,7 @@ class PushNotificationService {
       );
       if (settings.authorizationStatus == AuthorizationStatus.denied) {
         Log.w(
-          'Push notifications denied. Enable in Settings → Syanko → Notifications.',
+          'Push notifications denied. Enable in Settings → Data Portal Survey → Notifications.',
         );
       }
     } else {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:data_portal_survey/common/theme/app_colors.dart';
 import 'package:data_portal_survey/common/theme/app_fonts.dart';
 import 'package:data_portal_survey/common/theme/app_shapes.dart';
 import 'package:data_portal_survey/common/theme/app_spacing.dart';
@@ -25,15 +26,13 @@ class AppTheme {
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: ThemeColors.primaryMaterialColor.shade500,
-        onPrimary: ThemeColors.pageBackGroundColor,
+        onPrimary: AppColors.white,
         secondary: ThemeColors.secondaryColor,
-        onSecondary: ThemeColors.pageBackGroundColor,
-        error: ThemeColors.red,
-        onError: ThemeColors.pageBackGroundColor,
-        background: ThemeColors.pageBackGroundColor,
-        onBackground: ThemeColors.black,
-        surface: ThemeColors.pageBackGroundColor,
-        onSurface: ThemeColors.black,
+        onSecondary: AppColors.white,
+        error: AppColors.destructive,
+        onError: AppColors.white,
+        surface: AppColors.surface,
+        onSurface: AppColors.onSurface,
         tertiary: ThemeColors.primaryShadowColor,
       ),
 
@@ -178,25 +177,25 @@ class AppTheme {
       // Input Decoration Theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: ThemeColors.pageBackGroundColor,
+        fillColor: AppColors.surfaceContainerLow,
         border: OutlineInputBorder(
           borderRadius: AppShapes.radiusMd,
-          borderSide: const BorderSide(color: ThemeColors.grey),
+          borderSide: const BorderSide(color: AppColors.border),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: AppShapes.radiusMd,
-          borderSide: const BorderSide(color: ThemeColors.grey),
+          borderSide: const BorderSide(color: AppColors.border),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: AppShapes.radiusMd,
           borderSide: const BorderSide(
-            color: ThemeColors.primaryColor,
+            color: AppColors.primary,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: AppShapes.radiusMd,
-          borderSide: const BorderSide(color: ThemeColors.red),
+          borderSide: const BorderSide(color: AppColors.destructive),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.s16,
@@ -306,23 +305,20 @@ class AppTheme {
       // Color Scheme
       colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: ThemeColors.primaryColor,
-        onPrimary: ThemeColors.pageBackGroundColor,
-        secondary: ThemeColors.secondaryColor,
-        onSecondary: ThemeColors.black,
-        error: ThemeColors.red,
-        onError: ThemeColors.pageBackGroundColor,
-        background: Color(0xFF121212),
-        onBackground: ThemeColors.pageBackGroundColor,
-        surface: Color(0xFF1E1E1E),
-        onSurface: ThemeColors.pageBackGroundColor,
-        tertiary: ThemeColors.primaryShadowColor,
+        primary: AppColors.primary,
+        onPrimary: AppColors.white,
+        secondary: AppColors.secondary,
+        onSecondary: AppColors.white,
+        error: AppColors.destructiveDark,
+        onError: AppColors.darkBackground,
+        surface: AppColors.darkCard,
+        onSurface: AppColors.white,
       ),
 
       // Background & Surface
-      scaffoldBackgroundColor: const Color(0xFF121212),
-      shadowColor: const Color(0x33000000),
-      dividerColor: const Color(0xFF424242),
+      scaffoldBackgroundColor: AppColors.darkBackground,
+      shadowColor: AppColors.shadow,
+      dividerColor: AppColors.darkBorder,
 
       // Typography
       fontFamily: AppFonts.primary,
@@ -407,13 +403,13 @@ class AppTheme {
 
       // AppBar Theme
       appBarTheme: const AppBarTheme(
-        backgroundColor: Color(0xFF1E1E1E),
-        foregroundColor: ThemeColors.pageBackGroundColor,
+        backgroundColor: AppColors.darkCard,
+        foregroundColor: AppColors.white,
         elevation: 0,
         centerTitle: true,
-        iconTheme: IconThemeData(color: ThemeColors.pageBackGroundColor),
+        iconTheme: IconThemeData(color: AppColors.white),
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Color(0xFF1E1E1E),
+          statusBarColor: AppColors.darkCard,
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.dark,
         ),
@@ -461,25 +457,25 @@ class AppTheme {
       // Input Decoration Theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFF2C2C2C),
+        fillColor: AppColors.darkCard,
         border: OutlineInputBorder(
           borderRadius: AppShapes.radiusMd,
-          borderSide: const BorderSide(color: Color(0xFF424242)),
+          borderSide: const BorderSide(color: AppColors.darkInput),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: AppShapes.radiusMd,
-          borderSide: const BorderSide(color: Color(0xFF424242)),
+          borderSide: const BorderSide(color: AppColors.darkInput),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: AppShapes.radiusMd,
           borderSide: const BorderSide(
-            color: ThemeColors.primaryColor,
+            color: AppColors.primary,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: AppShapes.radiusMd,
-          borderSide: const BorderSide(color: ThemeColors.red),
+          borderSide: const BorderSide(color: AppColors.destructiveDark),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.s16,
@@ -490,21 +486,21 @@ class AppTheme {
       // Card Theme
       cardTheme: CardThemeData(
         elevation: 2,
-        color: const Color(0xFF2C2C2C),
-        surfaceTintColor: const Color(0xFF2C2C2C),
+        color: AppColors.darkCard,
+        surfaceTintColor: AppColors.darkCard,
         shape: AppShapes.cardShape,
       ),
 
       // Dialog Theme
       dialogTheme: DialogThemeData(
-        surfaceTintColor: const Color(0xFF2C2C2C),
-        backgroundColor: const Color(0xFF2C2C2C),
+        surfaceTintColor: AppColors.darkCard,
+        backgroundColor: AppColors.darkCard,
         shape: AppShapes.dialogShape,
       ),
 
       // Bottom Navigation Bar Theme
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Color(0xFF1E1E1E),
+        backgroundColor: AppColors.darkCard,
         selectedItemColor: ThemeColors.primaryColor,
         unselectedItemColor: ThemeColors.grey,
         type: BottomNavigationBarType.fixed,

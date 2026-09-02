@@ -1,6 +1,6 @@
 # Mobile push & notification inbox — integration guide
 
-This guide is for **Android and iOS** apps integrating with the Syanko API. It covers:
+This guide is for **Android and iOS** apps integrating with the Data Portal API. It covers:
 
 1. **FCM push delivery** (device registration + user preferences)
 2. **In-app notification inbox** (persisted history, unread badge, mark-read)

@@ -27,19 +27,19 @@ class _OnboardScreenState extends State<OnboardScreen> {
     const OnboardWidget(
       page: FirstPageText(),
       subTitle: AppStrings.onboardSubtitle1,
-      assets: Assets.onboard1,
+      assets: Assets.mobileBanner1,
       currentIndex: 0,
     ),
     const OnboardWidget(
       page: SecondPageText(),
       subTitle: AppStrings.onboardSubtitle2,
-      assets: Assets.onboard2,
+      assets: Assets.mobileBanner2,
       currentIndex: 1,
     ),
     const OnboardWidget(
       page: ThirdPageText(),
       subTitle: AppStrings.onboardSubtitle3,
-      assets: Assets.onboard3,
+      assets: Assets.dataPortalLogo,
       currentIndex: 2,
     ),
   ];

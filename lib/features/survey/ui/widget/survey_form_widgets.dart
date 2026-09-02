@@ -20,7 +20,7 @@ class SurveyFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: AppMetrics.fieldGap),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,7 +36,7 @@ class SurveyFormField extends StatelessWidget {
                   ? [
                       const TextSpan(
                         text: ' *',
-                        style: TextStyle(color: SurveyTheme.secondary),
+                        style: TextStyle(color: SurveyTheme.destructive),
                       ),
                     ]
                   : null,
@@ -58,7 +58,7 @@ class SurveyFormField extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               errorText!,
-              style: const TextStyle(fontSize: 12.5, color: SurveyTheme.secondary),
+              style: const TextStyle(fontSize: 12.5, color: SurveyTheme.destructive),
             ),
           ],
         ],

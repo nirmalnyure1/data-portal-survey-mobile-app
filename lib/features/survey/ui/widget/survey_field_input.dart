@@ -7,8 +7,8 @@ import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
 import 'package:data_portal_survey/features/survey/core/encoding.dart';
 import 'package:data_portal_survey/features/survey/model/survey_form_models.dart';
 
-const double kSurveyControlHeight = 48;
-const double kSurveyControlRadius = 9;
+const double kSurveyControlHeight = AppMetrics.controlHeight;
+const double kSurveyControlRadius = AppMetrics.controlRadius;
 
 InputDecoration surveyDecoration(
   BuildContext context, {
@@ -30,7 +30,7 @@ InputDecoration surveyDecoration(
       borderSide: const BorderSide(color: SurveyTheme.primary, width: 2),
     ),
     errorBorder: border.copyWith(
-      borderSide: const BorderSide(color: SurveyTheme.errorBorder, width: 1.5),
+      borderSide: const BorderSide(color: AppColors.destructive, width: 1.5),
     ),
   );
 }
@@ -332,7 +332,7 @@ class _MultiSelectBoxState extends State<_MultiSelectBox> {
             padding: const EdgeInsets.only(top: 6),
             child: Text(
               widget.error!,
-              style: const TextStyle(color: SurveyTheme.errorBorder, fontSize: 12),
+              style: const TextStyle(color: AppColors.destructive, fontSize: 12),
             ),
           ),
       ],
@@ -393,7 +393,7 @@ class _YesNo extends StatelessWidget {
             padding: const EdgeInsets.only(top: 6),
             child: Text(
               error!,
-              style: const TextStyle(color: SurveyTheme.errorBorder, fontSize: 12),
+              style: const TextStyle(color: AppColors.destructive, fontSize: 12),
             ),
           ),
       ],
@@ -568,7 +568,7 @@ class _RatingField extends StatelessWidget {
           ],
         ),
         if (error != null)
-          Text(error!, style: const TextStyle(color: SurveyTheme.errorBorder, fontSize: 12)),
+          Text(error!, style: const TextStyle(color: AppColors.destructive, fontSize: 12)),
       ],
     );
   }
@@ -610,7 +610,7 @@ class _RangeField extends StatelessWidget {
         ),
         Text('${snapToStep(current, min, step)}'),
         if (error != null)
-          Text(error!, style: const TextStyle(color: SurveyTheme.errorBorder, fontSize: 12)),
+          Text(error!, style: const TextStyle(color: AppColors.destructive, fontSize: 12)),
       ],
     );
   }
@@ -689,7 +689,7 @@ class _DoubleRangeFieldState extends State<_DoubleRangeField> {
         if (widget.error != null)
           Text(
             widget.error!,
-            style: const TextStyle(color: SurveyTheme.errorBorder, fontSize: 12),
+            style: const TextStyle(color: AppColors.destructive, fontSize: 12),
           ),
       ],
     );
@@ -804,7 +804,7 @@ class _FileField extends StatelessWidget {
         if (error != null)
           Padding(
             padding: const EdgeInsets.only(top: 6),
-            child: Text(error!, style: const TextStyle(color: SurveyTheme.errorBorder, fontSize: 12)),
+            child: Text(error!, style: const TextStyle(color: AppColors.destructive, fontSize: 12)),
           ),
       ],
     );

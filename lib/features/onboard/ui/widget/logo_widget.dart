@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:data_portal_survey/common/constants/constant_assets.dart';
 
 class LogoWidget extends StatelessWidget {
-  final bool isWhite;
-  const LogoWidget({super.key, this.isWhite = false});
+  const LogoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      Assets.appIcon,
-      height: 50,
+      Assets.dataPortalLogo,
+      height: 56,
+      fit: BoxFit.contain,
     );
   }
 }

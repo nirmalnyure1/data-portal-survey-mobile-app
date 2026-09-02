@@ -4,7 +4,7 @@ import 'package:data_portal_survey/common/constants/app_strings.dart';
 import 'package:data_portal_survey/common/constants/text_styles.dart';
 import 'package:data_portal_survey/features/onboard/ui/widget/page_indicator.dart';
 import 'package:data_portal_survey/common/theme/app_spacing.dart';
-import 'package:data_portal_survey/common/theme/theme.dart';
+import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
 
 class OnboardWidget extends StatelessWidget {
   final Widget page;
@@ -30,7 +30,7 @@ class OnboardWidget extends StatelessWidget {
         const SizedBox(height: AppSpacing.s24),
         Align(
           alignment: Alignment.center,
-          child: Image.asset(Assets.appIcon, height: 56, width: 56),
+          child: Image.asset(Assets.dataPortalLogo, height: 48, fit: BoxFit.contain),
         ),
         Align(
           alignment: Alignment.center,
@@ -68,7 +68,7 @@ class FirstPageText extends StatelessWidget {
           TextSpan(
             text: '\n${AppStrings.onboardHighlight1}',
             style: AppTextStyles.heading2.copyWith(
-              color: ThemeColors.primaryColor,
+              color: SurveyTheme.primary,
             ),
           ),
           TextSpan(
@@ -96,7 +96,7 @@ class SecondPageText extends StatelessWidget {
           TextSpan(
             text: '${AppStrings.onboardTitle2} ',
             style: AppTextStyles.heading2.copyWith(
-              color: ThemeColors.primaryColor,
+              color: SurveyTheme.primary,
             ),
           ),
           TextSpan(
@@ -124,7 +124,7 @@ class ThirdPageText extends StatelessWidget {
           TextSpan(
             text: '${AppStrings.onboardTitle3} ',
             style: AppTextStyles.heading2.copyWith(
-              color: ThemeColors.primaryColor,
+              color: SurveyTheme.primary,
             ),
           ),
           TextSpan(

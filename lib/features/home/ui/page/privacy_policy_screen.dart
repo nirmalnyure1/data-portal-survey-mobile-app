@@ -4,6 +4,7 @@ import 'package:data_portal_survey/common/theme/app_spacing.dart';
 import 'package:data_portal_survey/common/theme/theme_colors.dart';
 import 'package:data_portal_survey/common/widgets/page_wrapper.dart';
 import 'package:data_portal_survey/common/theme/app_shapes.dart';
+import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
 
 @RoutePage()
 class PrivacyPolicyScreen extends StatelessWidget {
@@ -13,62 +14,52 @@ class PrivacyPolicyScreen extends StatelessWidget {
     _PolicySection(
       title: '1. Information We Collect',
       body:
-          'We collect information you provide when you create an account, place an order, contact support or apply for a franchise. This includes your name, phone number, email, delivery address and order history.',
+          'We collect information you provide when you create an account, complete surveys, or contact support. This may include your name, phone number, email, survey responses, and device information.',
     ),
     _PolicySection(
       title: '2. How We Use Your Information',
       body:
-          'Your information is used to process and deliver orders, send payment and delivery updates, share offers, improve our menu and app experience, and provide customer support.',
+          'Your information is used to authenticate you, store and submit survey data, send operational notifications, improve the app, and provide customer support.',
     ),
     _PolicySection(
-      title: '3. Notifications & SMS Updates',
+      title: '3. Notifications',
       body:
-          'We may send payment, delivery and order-status updates via push notifications and SMS. You can manage notification preferences from the Settings screen.',
+          'We may send assignment updates, sync status, and other operational messages via push notifications. You can manage notification preferences from the Settings screen.',
     ),
     _PolicySection(
-      title: '4. Sharing With Delivery Partners',
+      title: '4. Survey Data',
       body:
-          'When you place an order routed through Pathao, Foodmandu or Bhoj, we share only the information required for delivery (name, contact and address). These partners handle that data per their own privacy policies.',
+          'Survey responses you collect are stored locally on your device until submitted, and may be transmitted to your organization\'s Data Portal backend when you submit or sync.',
     ),
     _PolicySection(
-      title: '5. Payment Information',
+      title: '5. Location Data',
       body:
-          'Payment details are processed by trusted payment gateways. Syanko Rolls does not store full card or wallet credentials on its servers.',
+          'With your permission, location data may be used when a survey form requests GPS coordinates for a response field.',
     ),
     _PolicySection(
-      title: '6. Location Data',
+      title: '6. Data Security',
       body:
-          'With your permission, we use location data to suggest the nearest outlet, calculate delivery options and improve your ordering experience.',
+          'We use reasonable technical and organizational measures to protect your information. However, no system is completely secure.',
     ),
     _PolicySection(
-      title: '7. Data Security',
+      title: '7. Your Choices',
       body:
-          'We use reasonable technical and organizational measures to protect your information. However, no system is completely secure, and we cannot guarantee absolute security.',
+          'You can update your profile, manage notification preferences, and request account deletion through the app or your administrator.',
     ),
     _PolicySection(
-      title: '8. Cookies & App Analytics',
+      title: '8. Children\'s Privacy',
       body:
-          'Our website and app may use cookies and analytics tools to understand usage patterns so we can improve performance, content and features.',
+          'The app is not intended for children under 13. We do not knowingly collect personal information from children.',
     ),
     _PolicySection(
-      title: '9. Your Choices',
+      title: '9. Changes to This Policy',
       body:
-          'You can update your profile, manage saved addresses, control notification preferences and request deletion of your account at any time through the app.',
+          'We may update this Privacy Policy from time to time. Significant changes will be communicated through the app.',
     ),
     _PolicySection(
-      title: '10. Children\'s Privacy',
+      title: '10. Contact Us',
       body:
-          'Our services are not intended for children under 13. We do not knowingly collect personal information from children.',
-    ),
-    _PolicySection(
-      title: '11. Changes to This Policy',
-      body:
-          'We may update this Privacy Policy from time to time. Significant changes will be communicated through the app or website.',
-    ),
-    _PolicySection(
-      title: '12. Contact Us',
-      body:
-          'For privacy-related questions or requests, reach out via the Help & Support section in the app or our website contact page.',
+          'For privacy-related questions, reach out via the Help & Support section in the app.',
     ),
   ];
 
@@ -88,7 +79,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 borderRadius: AppShapes.radiusLg,
               ),
               child: const Text(
-                'Your privacy is important to us. This policy explains what we collect, how we use it and the choices you have when using the Syanko Rolls app and website.',
+                'Your privacy is important to us. This policy explains what we collect, how we use it, and the choices you have when using Data Portal Survey.',
                 style: TextStyle(
                   fontSize: 14,
                   height: 1.5,
@@ -101,7 +92,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               width: double.infinity,
               padding: AppInsets.all16,
               decoration: BoxDecoration(
-                color: ThemeColors.pageBackGroundColor,
+                color: ThemeColors.cardBackGroundColor,
                 borderRadius: AppShapes.radiusLg,
               ),
               child: Column(
@@ -118,15 +109,15 @@ class PrivacyPolicyScreen extends StatelessWidget {
                               style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
-                                color: ThemeColors.black,
+                                color: SurveyTheme.primary,
                               ),
                             ),
-                            const SizedBox(height: AppSpacing.s6),
+                            const SizedBox(height: AppSpacing.s8),
                             Text(
                               section.body,
                               style: const TextStyle(
-                                fontSize: 13,
-                                height: 1.55,
+                                fontSize: 14,
+                                height: 1.5,
                                 color: ThemeColors.darkGrey,
                               ),
                             ),
@@ -137,17 +128,6 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     .toList(),
               ),
             ),
-            const SizedBox(height: AppSpacing.s20),
-            const Center(
-              child: Text(
-                'Last updated: 2026',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: ThemeColors.lightTextColor,
-                ),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.s20),
           ],
         ),
       ),
