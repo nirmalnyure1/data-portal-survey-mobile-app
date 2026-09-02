@@ -92,6 +92,7 @@ class PushNotificationService {
 
   static Future<void> handleBackgroundMessage(RemoteMessage message) async {
     WidgetsFlutterBinding.ensureInitialized();
+    await DefaultFirebaseOptions.loadEnv();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

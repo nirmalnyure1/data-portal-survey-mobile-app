@@ -4,18 +4,26 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
+  static Future<void> loadEnv() async {
+    if (!dotenv.isInitialized) {
+      await dotenv.load(fileName: '.env');
+    }
+  }
+
+  static String _requiredEnv(String key) {
+    final value = dotenv.env[key]?.trim() ?? '';
+    if (value.isEmpty) {
+      throw StateError(
+        'Missing $key. Copy .env.example to .env and fill in the Firebase keys.',
+      );
+    }
+    return value;
+  }
+
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       throw UnsupportedError(
@@ -50,15 +58,16 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAVd7ADQRd5LgOLPmgrGaXVbF7fVxOV-iY',
+  static FirebaseOptions get android => FirebaseOptions(
+    apiKey: _requiredEnv('FIREBASE_ANDROID_API_KEY'),
     appId: '1:910989560751:android:f6cd4862807114ac4c3d5a',
     messagingSenderId: '910989560751',
     projectId: 'data-portal-2c403',
     storageBucket: 'data-portal-2c403.firebasestorage.app',
   );
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD_8xxwhkDpsWnvfzepXG0u0aBmmr53bvE',
+
+  static FirebaseOptions get ios => FirebaseOptions(
+    apiKey: _requiredEnv('FIREBASE_IOS_API_KEY'),
     appId: '1:910989560751:ios:091e260ebfa4f1c24c3d5a',
     messagingSenderId: '910989560751',
     projectId: 'data-portal-2c403',

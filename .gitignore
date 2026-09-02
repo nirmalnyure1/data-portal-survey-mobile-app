@@ -46,6 +46,10 @@ app.*.map.json
 .opencode/
 .vscode/
 
+# Environment secrets
+.env
+.env.local
+
 # Play Console / Fastlane credentials (never commit service-account keys)
 syanko-play*.json
 syanko-project-*.json
