@@ -4,25 +4,25 @@ import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:data_portal_survey/features/survey/bloc/household_survey_state.dart';
-import 'package:data_portal_survey/features/survey/constants/household_survey_strings.dart';
+import 'package:data_portal_survey/features/survey/constants/survey_strings.dart';
 import 'package:data_portal_survey/features/survey/model/household_survey_models.dart';
-import 'package:data_portal_survey/features/survey/resource/survey_repository.dart';
-import 'package:data_portal_survey/features/survey/service/survey_draft_store.dart';
+import 'package:data_portal_survey/features/survey/resource/household_survey_repository.dart';
+import 'package:data_portal_survey/features/survey/service/household_survey_draft_store.dart';
 import 'package:data_portal_survey/features/survey/utils/household_survey_validation.dart';
 
 class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
-  HouseholdSurveyCubit({required SurveyRepository surveyRepository})
+  HouseholdSurveyCubit({required HouseholdSurveyRepository surveyRepository})
       : _surveyRepository = surveyRepository,
         super(HouseholdSurveyState(draft: HouseholdSurveyDraft.empty()));
 
-  final SurveyRepository _surveyRepository;
+  final HouseholdSurveyRepository _surveyRepository;
   Timer? _saveTimer;
 
   SurveyLang get lang =>
       state.draft.lang == 'ne' ? SurveyLang.ne : SurveyLang.en;
 
   Future<void> load() async {
-    final saved = await SurveyDraftStore.loadDraft();
+    final saved = await HouseholdSurveyDraftStore.loadDraft();
     if (saved != null && !saved.submitted) {
       emit(state.copyWith(draft: saved, clearErrors: true));
     }
@@ -31,14 +31,18 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
   void _scheduleAutosave() {
     _saveTimer?.cancel();
     _saveTimer = Timer(const Duration(milliseconds: 700), () async {
-      final updated = state.draft.copyWith(draftSavedAt: DateTime.now().millisecondsSinceEpoch);
+      final updated = state.draft.copyWith(
+        draftSavedAt: DateTime.now().millisecondsSinceEpoch,
+      );
       emit(state.copyWith(draft: updated));
-      await SurveyDraftStore.saveDraft(updated);
+      await HouseholdSurveyDraftStore.saveDraft(updated);
     });
   }
 
   void setLang(SurveyLang lang) {
-    final updated = state.draft.copyWith(lang: lang == SurveyLang.ne ? 'ne' : 'en');
+    final updated = state.draft.copyWith(
+      lang: lang == SurveyLang.ne ? 'ne' : 'en',
+    );
     emit(state.copyWith(draft: updated));
     _scheduleAutosave();
   }
@@ -66,25 +70,26 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
     String? preferredVisitTime,
     String? notesUrl,
   }) {
-    final answers = state.draft.answers.copyWith(
-      headName: headName,
-      phone: phone,
-      email: email,
-      wardNumber: wardNumber,
-      address: address,
-      toleLocation: toleLocation,
-      dob: dob,
-      calendarType: calendarType,
-      gender: gender,
-      ownsLand: ownsLand,
-      landArea: landArea,
-      incomeRange: incomeRange,
-      supportRating: supportRating,
-      lastVisitDateTime: lastVisitDateTime,
-      preferredVisitTime: preferredVisitTime,
-      notesUrl: notesUrl,
+    updateAnswers(
+      state.draft.answers.copyWith(
+        headName: headName,
+        phone: phone,
+        email: email,
+        wardNumber: wardNumber,
+        address: address,
+        toleLocation: toleLocation,
+        dob: dob,
+        calendarType: calendarType,
+        gender: gender,
+        ownsLand: ownsLand,
+        landArea: landArea,
+        incomeRange: incomeRange,
+        supportRating: supportRating,
+        lastVisitDateTime: lastVisitDateTime,
+        preferredVisitTime: preferredVisitTime,
+        notesUrl: notesUrl,
+      ),
     );
-    updateAnswers(answers);
   }
 
   void addMember() {
@@ -105,9 +110,7 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
   }
 
   void updateMember(int id, HouseholdMember member) {
-    final members = state.draft.members
-        .map((m) => m.id == id ? member : m)
-        .toList();
+    final members = state.draft.members.map((m) => m.id == id ? member : m).toList();
     emit(state.copyWith(draft: state.draft.copyWith(members: members), clearErrors: true));
     _scheduleAutosave();
   }
@@ -126,12 +129,8 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
   void setCropCount(int n) {
     final clamped = max(0, min(HouseholdSurveyDraft.maxCrops, n));
     var crops = state.draft.crops.toList();
-    if (crops.length > clamped) {
-      crops = crops.sublist(0, clamped);
-    }
-    while (crops.length < clamped) {
-      crops.add(const HouseholdCrop());
-    }
+    if (crops.length > clamped) crops = crops.sublist(0, clamped);
+    while (crops.length < clamped) crops.add(const HouseholdCrop());
     emit(
       state.copyWith(
         draft: state.draft.copyWith(cropCount: clamped, crops: crops),
@@ -175,9 +174,7 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
 
   Future<void> captureGpsLocation() async {
     try {
-      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) return;
-
+      if (!await Geolocator.isLocationServiceEnabled()) return;
       var permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -186,14 +183,11 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
           permission == LocationPermission.deniedForever) {
         return;
       }
-
       final position = await Geolocator.getCurrentPosition();
-      final label = HouseholdSurveyStrings.tr(
-        lang,
-        '${position.latitude.toStringAsFixed(5)}, ${position.longitude.toStringAsFixed(5)}',
-        '${position.latitude.toStringAsFixed(5)}, ${position.longitude.toStringAsFixed(5)}',
+      updateAnswerField(
+        toleLocation:
+            '${position.latitude.toStringAsFixed(5)}, ${position.longitude.toStringAsFixed(5)}',
       );
-      updateAnswerField(toleLocation: label);
     } catch (_) {}
   }
 
@@ -203,17 +197,14 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
     if (HouseholdSurveyValidation.hasErrors(errors)) {
       final touched = Map<int, bool>.from(state.draft.stepTouched);
       touched[step] = true;
-      emit(
-        state.copyWith(
-          draft: state.draft.copyWith(stepTouched: touched),
-          errors: errors,
-        ),
-      );
+      emit(state.copyWith(draft: state.draft.copyWith(stepTouched: touched), errors: errors));
       return;
     }
     emit(
       state.copyWith(
-        draft: state.draft.copyWith(step: min(step + 1, HouseholdSurveyDraft.totalSteps - 1)),
+        draft: state.draft.copyWith(
+          step: min(step + 1, HouseholdSurveyDraft.totalSteps - 1),
+        ),
         clearErrors: true,
       ),
     );
@@ -221,8 +212,12 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
   }
 
   void goBack() {
-    final step = max(0, state.draft.step - 1);
-    emit(state.copyWith(draft: state.draft.copyWith(step: step), clearErrors: true));
+    emit(
+      state.copyWith(
+        draft: state.draft.copyWith(step: max(0, state.draft.step - 1)),
+        clearErrors: true,
+      ),
+    );
     _scheduleAutosave();
   }
 
@@ -247,28 +242,15 @@ class HouseholdSurveyCubit extends Cubit<HouseholdSurveyState> {
 
     emit(state.copyWith(isSubmitting: true));
     final responseId = await _surveyRepository.submit(state.draft);
-    final submitted = state.draft.copyWith(
-      submitted: true,
-      responseId: responseId,
-    );
-    await SurveyDraftStore.clearDraft();
-    emit(
-      HouseholdSurveyState(
-        draft: submitted,
-        isSubmitting: false,
-      ),
-    );
+    final submitted = state.draft.copyWith(submitted: true, responseId: responseId);
+    await HouseholdSurveyDraftStore.clearDraft();
+    emit(HouseholdSurveyState(draft: submitted, isSubmitting: false));
   }
 
   void restart() {
     _saveTimer?.cancel();
-    SurveyDraftStore.clearDraft();
+    HouseholdSurveyDraftStore.clearDraft();
     emit(HouseholdSurveyState(draft: HouseholdSurveyDraft.empty()));
-  }
-
-  Map<String, String> errorsForCurrentStep() {
-    if (!showErrorsForStep(state.draft.step)) return {};
-    return HouseholdSurveyValidation.validateStep(state.draft, state.draft.step);
   }
 
   bool showErrorsForStep(int step) => state.draft.stepTouched[step] == true;

@@ -12,7 +12,7 @@ class HouseholdMember {
     this.name = '',
     this.age = '',
     this.relation = '',
-    this.skills = [],
+    this.skills = const [],
   });
 
   HouseholdMember copyWith({
@@ -218,7 +218,7 @@ class HouseholdSurveyDraft {
   final Map<int, bool> stepTouched;
   final int? draftSavedAt;
 
-  const HouseholdSurveyDraft({
+  HouseholdSurveyDraft({
     this.lang = 'en',
     this.step = 0,
     this.submitted = false,
@@ -228,10 +228,10 @@ class HouseholdSurveyDraft {
       HouseholdMember(id: 1, name: '', age: '', relation: '', skills: []),
     ],
     this.cropCount = 0,
-    this.crops = [],
+    this.crops = const [],
     this.housePhoto,
     this.landCertificate,
-    this.stepTouched = {},
+    this.stepTouched = const {},
     this.draftSavedAt,
   });
 
@@ -275,7 +275,7 @@ class HouseholdSurveyDraft {
     );
   }
 
-  static HouseholdSurveyDraft empty() => const HouseholdSurveyDraft();
+  static HouseholdSurveyDraft empty() => HouseholdSurveyDraft();
 
   Map<String, dynamic> toJson() => {
         'lang': lang,

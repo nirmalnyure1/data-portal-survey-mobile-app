@@ -4,6 +4,7 @@ import 'package:data_portal_survey/common/utils/media_picker.dart';
 import 'package:data_portal_survey/features/survey/bloc/household_survey_cubit.dart';
 import 'package:data_portal_survey/features/survey/bloc/household_survey_state.dart';
 import 'package:data_portal_survey/features/survey/constants/household_survey_strings.dart';
+import 'package:data_portal_survey/features/survey/constants/survey_strings.dart';
 import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
 import 'package:data_portal_survey/features/survey/model/household_survey_models.dart';
 import 'package:data_portal_survey/features/survey/ui/widget/survey_form_widgets.dart';
@@ -69,20 +70,20 @@ class BasicInfoStep extends StatelessWidget {
           children: [
             SurveyStepTitle(
               title: HouseholdSurveyStrings.stepTitles(lang)[0],
-              subtitle: HouseholdSurveyStrings.tr(
+              subtitle: SurveyStrings.tr(
                 lang,
                 'Basic household identification and contact details.',
                 'आधारभूत घरधुरी परिचय र सम्पर्क विवरण।',
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(lang, 'Household head name', 'घरमूलीको नाम'),
+              label: SurveyStrings.tr(lang, 'Household head name', 'घरमूलीको नाम'),
               required: true,
               errorText: _errorMessage(lang, errors['headName']),
               child: SurveyTextField(
                 initialValue: answers.headName,
                 onChanged: (v) => cubit.updateAnswerField(headName: v),
-                placeholder: HouseholdSurveyStrings.tr(
+                placeholder: SurveyStrings.tr(
                   lang,
                   'e.g. Ram Bahadur Thapa',
                   'जस्तै रामबहादुर थापा',
@@ -91,19 +92,21 @@ class BasicInfoStep extends StatelessWidget {
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(lang, 'Phone number', 'फोन नम्बर'),
+              label: SurveyStrings.tr(lang, 'Phone number', 'फोन नम्बर'),
               required: true,
               errorText: _errorMessage(lang, errors['phone']),
               child: SurveyTextField(
                 initialValue: answers.phone,
                 keyboardType: TextInputType.phone,
-                onChanged: (v) => cubit.updateAnswerField(phone: v.replaceAll(RegExp(r'[^0-9]'), '')),
+                onChanged: (v) => cubit.updateAnswerField(
+                  phone: v.replaceAll(RegExp(r'[^0-9]'), ''),
+                ),
                 placeholder: '98XXXXXXXX',
                 hasError: showErr && errors.containsKey('phone'),
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(lang, 'Email (optional)', 'इमेल (वैकल्पिक)'),
+              label: SurveyStrings.tr(lang, 'Email (optional)', 'इमेल (वैकल्पिक)'),
               child: SurveyTextField(
                 initialValue: answers.email,
                 keyboardType: TextInputType.emailAddress,
@@ -112,26 +115,26 @@ class BasicInfoStep extends StatelessWidget {
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(lang, 'Ward number', 'वडा नम्बर'),
+              label: SurveyStrings.tr(lang, 'Ward number', 'वडा नम्बर'),
               required: true,
               errorText: _errorMessage(lang, errors['wardNumber']),
               child: SurveyTextField(
                 initialValue: answers.wardNumber,
                 keyboardType: TextInputType.number,
                 onChanged: (v) => cubit.updateAnswerField(wardNumber: v),
-                placeholder: HouseholdSurveyStrings.tr(lang, 'e.g. 5', 'जस्तै ५'),
+                placeholder: SurveyStrings.tr(lang, 'e.g. 5', 'जस्तै ५'),
                 hasError: showErr && errors.containsKey('wardNumber'),
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(lang, 'Full address', 'पूरा ठेगाना'),
+              label: SurveyStrings.tr(lang, 'Full address', 'पूरा ठेगाना'),
               required: true,
               errorText: _errorMessage(lang, errors['address']),
               child: SurveyTextField(
                 initialValue: answers.address,
                 maxLines: 3,
                 onChanged: (v) => cubit.updateAnswerField(address: v),
-                placeholder: HouseholdSurveyStrings.tr(
+                placeholder: SurveyStrings.tr(
                   lang,
                   'Municipality, ward, tole',
                   'नगरपालिका, वडा, टोल',
@@ -140,7 +143,7 @@ class BasicInfoStep extends StatelessWidget {
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(
+              label: SurveyStrings.tr(
                 lang,
                 'Tole / landmark (optional)',
                 'टोल / ठाडो चिनो (वैकल्पिक)',
@@ -151,7 +154,7 @@ class BasicInfoStep extends StatelessWidget {
                     child: SurveyTextField(
                       initialValue: answers.toleLocation,
                       onChanged: (v) => cubit.updateAnswerField(toleLocation: v),
-                      placeholder: HouseholdSurveyStrings.tr(
+                      placeholder: SurveyStrings.tr(
                         lang,
                         'Nearest landmark',
                         'नजिकको चिनो',
@@ -181,7 +184,7 @@ class BasicInfoStep extends StatelessWidget {
                           ),
                           const SizedBox(width: 7),
                           Text(
-                            HouseholdSurveyStrings.tr(lang, 'Use GPS', 'GPS प्रयोग'),
+                            SurveyStrings.tr(lang, 'Use GPS', 'GPS प्रयोग'),
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -222,16 +225,16 @@ class HouseholdHeadStep extends StatelessWidget {
           children: [
             SurveyStepTitle(
               title: HouseholdSurveyStrings.stepTitles(lang)[1],
-              subtitle: HouseholdSurveyStrings.tr(
+              subtitle: SurveyStrings.tr(
                 lang,
                 'Head of household details and land ownership.',
                 'घरमूलीको विवरण र जमिन स्वामित्व।',
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(lang, 'Date of birth', 'जन्म मिति'),
+              label: SurveyStrings.tr(lang, 'Date of birth', 'जन्म मिति'),
               required: true,
-              hint: HouseholdSurveyStrings.tr(
+              hint: SurveyStrings.tr(
                 lang,
                 'Stored as AD date internally.',
                 'आन्तरिक रूपमा ईसाई मितिको रूपमा भण्डारण गरिन्छ।',
@@ -280,7 +283,8 @@ class HouseholdHeadStep extends StatelessWidget {
                         );
                         if (picked != null) {
                           cubit.updateAnswerField(
-                            dob: '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}',
+                            dob:
+                                '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}',
                           );
                         }
                       },
@@ -301,7 +305,7 @@ class HouseholdHeadStep extends StatelessWidget {
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(lang, 'Gender', 'लिङ्ग'),
+              label: SurveyStrings.tr(lang, 'Gender', 'लिङ्ग'),
               required: true,
               errorText: _errorMessage(lang, errors['gender']),
               child: DropdownButtonFormField<String>(
@@ -333,7 +337,7 @@ class HouseholdHeadStep extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${HouseholdSurveyStrings.tr(lang, 'Does this household own agricultural land?', 'यो घरधुरीले कृषि जमिन स्वामित्व राख्छ?')} *',
+                    '${SurveyStrings.tr(lang, 'Does this household own agricultural land?', 'यो घरधुरीले कृषि जमिन स्वामित्व राख्छ?')} *',
                     style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 10),
@@ -363,7 +367,7 @@ class HouseholdHeadStep extends StatelessWidget {
                   if (answers.ownsLand == 'yes') ...[
                     const SizedBox(height: 16),
                     SurveyFormField(
-                      label: HouseholdSurveyStrings.tr(
+                      label: SurveyStrings.tr(
                         lang,
                         'Land area (ropani)',
                         'जमिनको क्षेत्रफल (रोपनी)',
@@ -409,7 +413,7 @@ class MembersStep extends StatelessWidget {
           children: [
             SurveyStepTitle(
               title: HouseholdSurveyStrings.stepTitles(lang)[2],
-              subtitle: HouseholdSurveyStrings.tr(
+              subtitle: SurveyStrings.tr(
                 lang,
                 'Add every person living in this household.',
                 'यो घरधुरीमा बस्ने प्रत्येक व्यक्ति थप्नुहोस्।',
@@ -419,12 +423,12 @@ class MembersStep extends StatelessWidget {
               final i = entry.key;
               final m = entry.value;
               return SurveyCard(
-                title: '${HouseholdSurveyStrings.tr(lang, 'Member', 'सदस्य')} ${i + 1}',
+                title: '${SurveyStrings.tr(lang, 'Member', 'सदस्य')} ${i + 1}',
                 trailing: members.length > 1
                     ? GestureDetector(
                         onTap: () => cubit.removeMember(m.id),
                         child: Text(
-                          HouseholdSurveyStrings.tr(lang, 'Remove', 'हटाउनुहोस्'),
+                          SurveyStrings.tr(lang, 'Remove', 'हटाउनुहोस्'),
                           style: const TextStyle(
                             color: SurveyTheme.secondary,
                             fontSize: 12.5,
@@ -440,7 +444,7 @@ class MembersStep extends StatelessWidget {
                         Expanded(
                           flex: 3,
                           child: SurveyFormField(
-                            label: HouseholdSurveyStrings.tr(lang, 'Full name', 'पूरा नाम'),
+                            label: SurveyStrings.tr(lang, 'Full name', 'पूरा नाम'),
                             required: true,
                             errorText: _errorMessage(lang, errors['member_${i}_name']),
                             child: SurveyTextField(
@@ -455,7 +459,7 @@ class MembersStep extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: SurveyFormField(
-                            label: HouseholdSurveyStrings.tr(lang, 'Age', 'उमेर'),
+                            label: SurveyStrings.tr(lang, 'Age', 'उमेर'),
                             required: true,
                             errorText: _errorMessage(lang, errors['member_${i}_age']),
                             child: SurveyTextField(
@@ -470,7 +474,7 @@ class MembersStep extends StatelessWidget {
                       ],
                     ),
                     SurveyFormField(
-                      label: HouseholdSurveyStrings.tr(
+                      label: SurveyStrings.tr(
                         lang,
                         'Relation to head',
                         'घरमूलीसँगको सम्बन्ध',
@@ -496,7 +500,7 @@ class MembersStep extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      HouseholdSurveyStrings.tr(
+                      SurveyStrings.tr(
                         lang,
                         'Skills / occupation',
                         'सीप / पेशा',
@@ -561,7 +565,7 @@ class MembersStep extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    HouseholdSurveyStrings.tr(
+                    SurveyStrings.tr(
                       lang,
                       '+ Add household member',
                       '+ घरपरिवार सदस्य थप्नुहोस्',
@@ -599,14 +603,14 @@ class CropsStep extends StatelessWidget {
           children: [
             SurveyStepTitle(
               title: HouseholdSurveyStrings.stepTitles(lang)[3],
-              subtitle: HouseholdSurveyStrings.tr(
+              subtitle: SurveyStrings.tr(
                 lang,
                 'Tell us about crops grown this season.',
                 'यस सिजनमा उब्जाइने बालीहरूको बारेमा बताउनुहोस्।',
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(
+              label: SurveyStrings.tr(
                 lang,
                 'How many types of crops do you grow?',
                 'तपाईं कति प्रकारका बाली उब्जाउनुहुन्छ?',
@@ -616,8 +620,7 @@ class CropsStep extends StatelessWidget {
               child: SurveyTextField(
                 initialValue: state.draft.cropCount == 0 ? '' : '${state.draft.cropCount}',
                 keyboardType: TextInputType.number,
-                onChanged: (v) =>
-                    cubit.setCropCount(int.tryParse(v) ?? 0),
+                onChanged: (v) => cubit.setCropCount(int.tryParse(v) ?? 0),
                 hasError: showErr && errors.containsKey('cropCount'),
               ),
             ),
@@ -625,11 +628,11 @@ class CropsStep extends StatelessWidget {
               final i = entry.key;
               final crop = entry.value;
               return SurveyCard(
-                title: '${HouseholdSurveyStrings.tr(lang, 'Crop', 'बाली')} ${i + 1}',
+                title: '${SurveyStrings.tr(lang, 'Crop', 'बाली')} ${i + 1}',
                 child: Column(
                   children: [
                     SurveyFormField(
-                      label: HouseholdSurveyStrings.tr(
+                      label: SurveyStrings.tr(
                         lang,
                         'Crop type',
                         'बालीको प्रकार',
@@ -665,7 +668,7 @@ class CropsStep extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          HouseholdSurveyStrings.tr(
+                          SurveyStrings.tr(
                             lang,
                             'Share of land',
                             'जमिनको हिस्सा',
@@ -721,7 +724,7 @@ class LivelihoodStep extends StatelessWidget {
           children: [
             SurveyStepTitle(
               title: HouseholdSurveyStrings.stepTitles(lang)[4],
-              subtitle: HouseholdSurveyStrings.tr(
+              subtitle: SurveyStrings.tr(
                 lang,
                 'Income, satisfaction, and extension worker visits.',
                 'आम्दानी, सन्तुष्टि, र प्रसार कार्यकर्ताको भ्रमण।',
@@ -731,7 +734,7 @@ class LivelihoodStep extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  HouseholdSurveyStrings.tr(
+                  SurveyStrings.tr(
                     lang,
                     'Estimated monthly income',
                     'अनुमानित मासिक आम्दानी',
@@ -739,7 +742,7 @@ class LivelihoodStep extends StatelessWidget {
                   style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  'Rs ${answers.incomeRange.toString()}',
+                  'Rs ${answers.incomeRange}',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
@@ -758,7 +761,7 @@ class LivelihoodStep extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              HouseholdSurveyStrings.tr(
+              SurveyStrings.tr(
                 lang,
                 'Satisfaction with agricultural support',
                 'कृषि सहायताप्रति सन्तुष्टि',
@@ -800,7 +803,7 @@ class LivelihoodStep extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(
+              label: SurveyStrings.tr(
                 lang,
                 'Last extension worker visit',
                 'अन्तिम प्रसार कार्यकर्ता भ्रमण',
@@ -815,6 +818,7 @@ class LivelihoodStep extends StatelessWidget {
                     lastDate: now,
                   );
                   if (date == null) return;
+                  if (!context.mounted) return;
                   final time = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.fromDateTime(now),
@@ -834,7 +838,7 @@ class LivelihoodStep extends StatelessWidget {
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(
+              label: SurveyStrings.tr(
                 lang,
                 'Preferred visit time',
                 'मनपर्ने भ्रमण समय',
@@ -891,6 +895,7 @@ class DocumentsStep extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<HouseholdSurveyCubit>();
         final lang = cubit.lang;
+        final answers = state.draft.answers;
         final showErr = cubit.showErrorsForStep(5);
         final errors = showErr
             ? HouseholdSurveyValidation.validateStep(state.draft, 5)
@@ -901,19 +906,19 @@ class DocumentsStep extends StatelessWidget {
           children: [
             SurveyStepTitle(
               title: HouseholdSurveyStrings.stepTitles(lang)[5],
-              subtitle: HouseholdSurveyStrings.tr(
+              subtitle: SurveyStrings.tr(
                 lang,
                 'Upload supporting documents.',
                 'सहायक कागजातहरू अपलोड गर्नुहोस्।',
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(lang, 'House photo', 'घरको फोटो'),
+              label: SurveyStrings.tr(lang, 'House photo', 'घरको फोटो'),
               required: true,
               errorText: _errorMessage(lang, errors['housePhoto']),
               child: _UploadDrop(
                 label: state.draft.housePhoto?.name ??
-                    HouseholdSurveyStrings.tr(
+                    SurveyStrings.tr(
                       lang,
                       'Tap to upload',
                       'अपलोड गर्न ट्याप गर्नुहोस्',
@@ -923,14 +928,14 @@ class DocumentsStep extends StatelessWidget {
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(
+              label: SurveyStrings.tr(
                 lang,
                 'Land certificate (optional)',
                 'जमिन प्रमाणपत्र (वैकल्पिक)',
               ),
               child: _UploadDrop(
                 label: state.draft.landCertificate?.name ??
-                    HouseholdSurveyStrings.tr(
+                    SurveyStrings.tr(
                       lang,
                       'Tap to upload',
                       'अपलोड गर्न ट्याप गर्नुहोस्',
@@ -939,7 +944,7 @@ class DocumentsStep extends StatelessWidget {
               ),
             ),
             SurveyFormField(
-              label: HouseholdSurveyStrings.tr(
+              label: SurveyStrings.tr(
                 lang,
                 'Reference link (optional)',
                 'सन्दर्भ लिङ्क (वैकल्पिक)',
@@ -992,7 +997,7 @@ class _UploadDrop extends StatelessWidget {
             Container(
               width: 34,
               height: 34,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: SurveyTheme.surfaceContainer,
                 shape: BoxShape.circle,
               ),
@@ -1052,23 +1057,23 @@ class ReviewStep extends StatelessWidget {
             title: titles[0],
             step: 0,
             rows: [
-              (HouseholdSurveyStrings.tr(lang, 'Name', 'नाम'), answers.headName),
-              (HouseholdSurveyStrings.tr(lang, 'Phone', 'फोन'), answers.phone),
-              (HouseholdSurveyStrings.tr(lang, 'Ward', 'वडा'), answers.wardNumber),
-              (HouseholdSurveyStrings.tr(lang, 'Address', 'ठेगाना'), answers.address),
+              (SurveyStrings.tr(lang, 'Name', 'नाम'), answers.headName),
+              (SurveyStrings.tr(lang, 'Phone', 'फोन'), answers.phone),
+              (SurveyStrings.tr(lang, 'Ward', 'वडा'), answers.wardNumber),
+              (SurveyStrings.tr(lang, 'Address', 'ठेगाना'), answers.address),
             ],
           ),
           (
             title: titles[1],
             step: 1,
             rows: [
-              (HouseholdSurveyStrings.tr(lang, 'Date of birth', 'जन्म मिति'), answers.dob),
+              (SurveyStrings.tr(lang, 'Date of birth', 'जन्म मिति'), answers.dob),
               (
-                HouseholdSurveyStrings.tr(lang, 'Gender', 'लिङ्ग'),
+                SurveyStrings.tr(lang, 'Gender', 'लिङ्ग'),
                 _labelFor(lang, HouseholdSurveyStrings.genderOptions(lang), answers.gender),
               ),
               (
-                HouseholdSurveyStrings.tr(lang, 'Owns land', 'जमिन स्वामित्व'),
+                SurveyStrings.tr(lang, 'Owns land', 'जमिन स्वामित्व'),
                 _yn(lang, answers.ownsLand),
               ),
             ],
@@ -1078,7 +1083,7 @@ class ReviewStep extends StatelessWidget {
             step: 2,
             rows: [
               (
-                HouseholdSurveyStrings.tr(lang, 'Members added', 'थपिएका सदस्य'),
+                SurveyStrings.tr(lang, 'Members added', 'थपिएका सदस्य'),
                 '${draft.members.length}',
               ),
             ],
@@ -1088,7 +1093,7 @@ class ReviewStep extends StatelessWidget {
             step: 3,
             rows: [
               (
-                HouseholdSurveyStrings.tr(lang, 'Crop types', 'बालीका प्रकार'),
+                SurveyStrings.tr(lang, 'Crop types', 'बालीका प्रकार'),
                 '${draft.cropCount}',
               ),
             ],
@@ -1098,11 +1103,11 @@ class ReviewStep extends StatelessWidget {
             step: 4,
             rows: [
               (
-                HouseholdSurveyStrings.tr(lang, 'Monthly income', 'मासिक आम्दानी'),
+                SurveyStrings.tr(lang, 'Monthly income', 'मासिक आम्दानी'),
                 'Rs ${answers.incomeRange}',
               ),
               (
-                HouseholdSurveyStrings.tr(lang, 'Support rating', 'सहायता मूल्याङ्कन'),
+                SurveyStrings.tr(lang, 'Support rating', 'सहायता मूल्याङ्कन'),
                 '${answers.supportRating}/5',
               ),
             ],
@@ -1112,9 +1117,9 @@ class ReviewStep extends StatelessWidget {
             step: 5,
             rows: [
               (
-                HouseholdSurveyStrings.tr(lang, 'House photo', 'घरको फोटो'),
+                SurveyStrings.tr(lang, 'House photo', 'घरको फोटो'),
                 draft.housePhoto?.name ??
-                    HouseholdSurveyStrings.tr(
+                    SurveyStrings.tr(
                       lang,
                       'Not uploaded',
                       'अपलोड नभएको',
@@ -1129,68 +1134,70 @@ class ReviewStep extends StatelessWidget {
           children: [
             SurveyStepTitle(
               title: titles[6],
-              subtitle: HouseholdSurveyStrings.tr(
+              subtitle: SurveyStrings.tr(
                 lang,
                 'Please check your answers before submitting.',
                 'पेश गर्नुअघि आफ्नो जवाफहरू जाँच गर्नुहोस्।',
               ),
             ),
-            ...sections.map((sec) => SurveyCard(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              sec.title,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                              ),
+            ...sections.map(
+              (sec) => SurveyCard(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            sec.title,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () => cubit.editStep(sec.step),
-                            child: Text(
-                              HouseholdSurveyStrings.tr(lang, 'Edit', 'सम्पादन'),
+                        ),
+                        GestureDetector(
+                          onTap: () => cubit.editStep(sec.step),
+                          child: Text(
+                            SurveyStrings.tr(lang, 'Edit', 'सम्पादन'),
+                            style: const TextStyle(
+                              color: SurveyTheme.primary,
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    ...sec.rows.map(
+                      (row) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 7),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                row.$1,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: SurveyTheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              row.$2.isEmpty ? '—' : row.$2,
                               style: const TextStyle(
-                                color: SurveyTheme.primary,
-                                fontSize: 12.5,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      ...sec.rows.map(
-                        (row) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 7),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  row.$1,
-                                  style: const TextStyle(
-                                    fontSize: 13,
-                                    color: SurveyTheme.onSurfaceVariant,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                row.$2.isEmpty ? '—' : row.$2,
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         );
       },

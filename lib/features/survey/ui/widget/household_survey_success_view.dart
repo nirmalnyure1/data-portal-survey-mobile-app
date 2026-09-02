@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:data_portal_survey/features/survey/bloc/survey_collect_cubit.dart';
+import 'package:data_portal_survey/features/survey/bloc/household_survey_cubit.dart';
 import 'package:data_portal_survey/features/survey/constants/survey_strings.dart';
 import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
 
-class SurveySuccessView extends StatelessWidget {
-  const SurveySuccessView({super.key});
+class HouseholdSurveySuccessView extends StatelessWidget {
+  const HouseholdSurveySuccessView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SurveyCollectCubit>();
+    final cubit = context.read<HouseholdSurveyCubit>();
     final lang = cubit.lang;
-    final responseId = cubit.state.responseId ?? '';
-    final isOffline = responseId == 'offline';
+    final responseId = cubit.state.draft.responseId ?? '';
 
     return Center(
       child: Padding(
@@ -40,24 +39,18 @@ class SurveySuccessView extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              isOffline
-                  ? SurveyStrings.tr(
-                      lang,
-                      'Saved offline. It will sync when you are back online.',
-                      'अफलाइन सुरक्षित गरियो। इन्टरनेट जोडिएपछि सिङ्क हुनेछ।',
-                    )
-                  : SurveyStrings.tr(
-                      lang,
-                      'Thank you. Your response has been recorded successfully.',
-                      'धन्यवाद। तपाईंको प्रतिक्रिया सफलतापूर्वक रेकर्ड गरिएको छ।',
-                    ),
+              SurveyStrings.tr(
+                lang,
+                'Thank you. Your response has been recorded successfully.',
+                'धन्यवाद। तपाईंको प्रतिक्रिया सफलतापूर्वक रेकर्ड गरिएको छ।',
+              ),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 13.5,
                 color: SurveyTheme.onSurfaceVariant,
               ),
             ),
-            if (!isOffline && responseId.isNotEmpty) ...[
+            if (responseId.isNotEmpty) ...[
               const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -79,7 +72,7 @@ class SurveySuccessView extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: cubit.restart,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: SurveyTheme.primary,
                   foregroundColor: Colors.white,
@@ -89,7 +82,7 @@ class SurveySuccessView extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  SurveyStrings.tr(lang, 'Done', 'सम्पन्न'),
+                  SurveyStrings.tr(lang, 'Start new survey', 'नयाँ सर्वेक्षण सुरु गर्नुहोस्'),
                   style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),

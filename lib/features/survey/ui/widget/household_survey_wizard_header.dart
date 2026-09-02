@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:data_portal_survey/features/survey/bloc/survey_collect_cubit.dart';
-import 'package:data_portal_survey/features/survey/bloc/survey_collect_state.dart';
+import 'package:data_portal_survey/features/survey/bloc/household_survey_cubit.dart';
+import 'package:data_portal_survey/features/survey/bloc/household_survey_state.dart';
+import 'package:data_portal_survey/features/survey/constants/household_survey_strings.dart';
 import 'package:data_portal_survey/features/survey/constants/survey_strings.dart';
 import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
+import 'package:data_portal_survey/features/survey/model/household_survey_models.dart';
 import 'package:data_portal_survey/features/survey/ui/widget/survey_form_widgets.dart';
 
-class SurveyWizardHeader extends StatelessWidget {
-  const SurveyWizardHeader({super.key});
+class HouseholdSurveyWizardHeader extends StatelessWidget {
+  const HouseholdSurveyWizardHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SurveyCollectCubit, SurveyCollectState>(
+    return BlocBuilder<HouseholdSurveyCubit, HouseholdSurveyState>(
       builder: (context, state) {
-        final cubit = context.read<SurveyCollectCubit>();
+        final cubit = context.read<HouseholdSurveyCubit>();
         final lang = cubit.lang;
-        final form = state.form;
-        final step = state.step;
-        final sectionTitle = state.currentSection?.title.resolve(state.locale) ?? '';
-        final total = state.sections.length;
+        final step = state.draft.step;
+        final total = HouseholdSurveyDraft.totalSteps;
+        final sectionTitle = HouseholdSurveyStrings.stepTitles(lang)[step];
+        final progress = (step + 1) / total;
 
         return Container(
           decoration: BoxDecoration(
@@ -35,7 +37,11 @@ class SurveyWizardHeader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          form?.title.resolve(state.locale) ?? '',
+                          SurveyStrings.tr(
+                            lang,
+                            'Household Survey',
+                            'घरधुरी सर्वेक्षण',
+                          ),
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -57,7 +63,7 @@ class SurveyWizardHeader extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if (state.draftSavedAt != null)
+                  if (state.draft.draftSavedAt != null)
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Row(
@@ -101,7 +107,7 @@ class SurveyWizardHeader extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(99),
                 child: LinearProgressIndicator(
-                  value: state.progress,
+                  value: progress,
                   minHeight: 4,
                   backgroundColor: SurveyTheme.outlineVariant,
                   color: SurveyTheme.primary,

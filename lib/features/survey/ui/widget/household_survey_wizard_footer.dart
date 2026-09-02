@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:data_portal_survey/features/survey/bloc/survey_collect_cubit.dart';
-import 'package:data_portal_survey/features/survey/bloc/survey_collect_state.dart';
+import 'package:data_portal_survey/features/survey/bloc/household_survey_cubit.dart';
+import 'package:data_portal_survey/features/survey/bloc/household_survey_state.dart';
 import 'package:data_portal_survey/features/survey/constants/survey_strings.dart';
 import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
+import 'package:data_portal_survey/features/survey/model/household_survey_models.dart';
 
-class SurveyWizardFooter extends StatelessWidget {
-  const SurveyWizardFooter({super.key});
+class HouseholdSurveyWizardFooter extends StatelessWidget {
+  const HouseholdSurveyWizardFooter({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SurveyCollectCubit, SurveyCollectState>(
+    return BlocBuilder<HouseholdSurveyCubit, HouseholdSurveyState>(
       builder: (context, state) {
-        final cubit = context.read<SurveyCollectCubit>();
+        final cubit = context.read<HouseholdSurveyCubit>();
         final lang = cubit.lang;
-        final showBack = state.step > 0;
-        final showNext = !state.isLast;
-        final showSubmit = state.isLast;
+        final step = state.draft.step;
+        final showBack = step > 0;
+        final showNext = step < HouseholdSurveyDraft.totalSteps - 1;
+        final showSubmit = step == HouseholdSurveyDraft.totalSteps - 1;
 
         return Container(
           decoration: BoxDecoration(
@@ -24,49 +26,35 @@ class SurveyWizardFooter extends StatelessWidget {
             border: const Border(top: BorderSide(color: SurveyTheme.outlineVariant)),
           ),
           padding: const EdgeInsets.fromLTRB(18, 12, 18, 12),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: Row(
             children: [
-              if (state.submitError != null)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    state.submitError!,
-                    style: const TextStyle(color: SurveyTheme.errorBorder, fontSize: 12),
-                    textAlign: TextAlign.center,
+              if (showBack)
+                Expanded(
+                  child: _FooterButton(
+                    label: SurveyStrings.tr(lang, 'Back', 'पछाडि'),
+                    ghost: true,
+                    onTap: cubit.goBack,
                   ),
                 ),
-              Row(
-                children: [
-                  if (showBack)
-                    Expanded(
-                      child: _FooterButton(
-                        label: SurveyStrings.tr(lang, 'Back', 'पछाडि'),
-                        ghost: true,
-                        onTap: cubit.previous,
-                      ),
-                    ),
-                  if (showBack) const SizedBox(width: 10),
-                  if (showNext)
-                    Expanded(
-                      flex: 2,
-                      child: _FooterButton(
-                        label: SurveyStrings.tr(lang, 'Next', 'अर्को'),
-                        onTap: cubit.next,
-                      ),
-                    ),
-                  if (showSubmit)
-                    Expanded(
-                      flex: 2,
-                      child: _FooterButton(
-                        label: SurveyStrings.tr(lang, 'Submit', 'पेश गर्नुहोस्'),
-                        danger: true,
-                        loading: state.isSubmitting,
-                        onTap: state.isSubmitting ? null : cubit.submit,
-                      ),
-                    ),
-                ],
-              ),
+              if (showBack) const SizedBox(width: 10),
+              if (showNext)
+                Expanded(
+                  flex: 2,
+                  child: _FooterButton(
+                    label: SurveyStrings.tr(lang, 'Next', 'अर्को'),
+                    onTap: cubit.goNext,
+                  ),
+                ),
+              if (showSubmit)
+                Expanded(
+                  flex: 2,
+                  child: _FooterButton(
+                    label: SurveyStrings.tr(lang, 'Submit', 'पेश गर्नुहोस्'),
+                    danger: true,
+                    loading: state.isSubmitting,
+                    onTap: state.isSubmitting ? null : cubit.submit,
+                  ),
+                ),
             ],
           ),
         );

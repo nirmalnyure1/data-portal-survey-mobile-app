@@ -93,7 +93,7 @@ class EnvValue {
   );
 
   static final Env development = Env(
-    baseUrl: '',
+    baseUrl: 'https://backend.provincedataportal.cliffbyte.com/api',
     socketUrl: '',
     webSecretKey: 'YourDevSecretKey',
     appName: 'Data Portal Survey Dev',
@@ -101,7 +101,7 @@ class EnvValue {
   );
 
   static final Env staging = Env(
-    baseUrl: '',
+    baseUrl: 'https://backend.provincedataportal.cliffbyte.com/api',
     socketUrl: '',
     webSecretKey: 'YourStagingSecretKey',
     appName: 'Data Portal Survey Staging',
@@ -109,7 +109,7 @@ class EnvValue {
   );
 
   static final Env production = Env(
-    baseUrl: '',
+    baseUrl: 'https://backend.provincedataportal.cliffbyte.com/api',
     socketUrl: '',
     webSecretKey: 'YourProductionSecretKey',
     appName: 'Data Portal Survey',

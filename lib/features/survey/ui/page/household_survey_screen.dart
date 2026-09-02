@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:data_portal_survey/features/survey/bloc/household_survey_cubit.dart';
 import 'package:data_portal_survey/features/survey/bloc/household_survey_state.dart';
 import 'package:data_portal_survey/features/survey/constants/survey_theme.dart';
-import 'package:data_portal_survey/features/survey/resource/survey_repository.dart';
+import 'package:data_portal_survey/features/survey/resource/household_survey_repository.dart';
 import 'package:data_portal_survey/features/survey/ui/widget/household_survey_steps.dart';
-import 'package:data_portal_survey/features/survey/ui/widget/survey_success_view.dart';
-import 'package:data_portal_survey/features/survey/ui/widget/survey_wizard_footer.dart';
-import 'package:data_portal_survey/features/survey/ui/widget/survey_wizard_header.dart';
+import 'package:data_portal_survey/features/survey/ui/widget/household_survey_success_view.dart';
+import 'package:data_portal_survey/features/survey/ui/widget/household_survey_wizard_footer.dart';
+import 'package:data_portal_survey/features/survey/ui/widget/household_survey_wizard_header.dart';
 
 @RoutePage()
 class HouseholdSurveyScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class HouseholdSurveyScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         final cubit = HouseholdSurveyCubit(
-          surveyRepository: context.read<SurveyRepository>(),
+          surveyRepository: context.read<HouseholdSurveyRepository>(),
         );
         cubit.load();
         return cubit;
@@ -60,19 +60,19 @@ class _HouseholdSurveyView extends StatelessWidget {
       body: BlocBuilder<HouseholdSurveyCubit, HouseholdSurveyState>(
         builder: (context, state) {
           if (state.draft.submitted) {
-            return const SafeArea(child: SurveySuccessView());
+            return const SafeArea(child: HouseholdSurveySuccessView());
           }
 
           return Column(
             children: [
-              const SurveyWizardHeader(),
+              const SafeArea(bottom: false, child: HouseholdSurveyWizardHeader()),
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(18, 22, 18, 28),
                   child: _stepWidget(state.draft.step),
                 ),
               ),
-              const SurveyWizardFooter(),
+              const SafeArea(top: false, child: HouseholdSurveyWizardFooter()),
             ],
           );
         },

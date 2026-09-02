@@ -10,11 +10,12 @@ class AppStrings {
   static const String surveysEmptySubtitle =
       'Surveys assigned to you will show up here.';
   static const String surveysListSubtitle =
-      'Start or resume household data collection in the field.';
+      'Select a form to collect or resume a saved draft.';
+  static const String surveyCardDefaultSubtitle = 'Tap to start collecting responses';
+  static const String resumeDraft = 'Draft in progress — tap to resume';
   static const String householdSurveyTitle = 'Household Survey';
   static const String householdSurveySubtitle =
       '7-step form: basic info, members, crops, documents & review';
-  static const String resumeDraft = 'Draft in progress — tap to resume';
   static const String recentSubmissions = 'Recent submissions';
   static const String aboutApp = 'About';
   static const String aboutAppBody =

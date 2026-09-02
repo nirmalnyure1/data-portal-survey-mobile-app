@@ -92,10 +92,7 @@ class PushNotificationService {
 
   static Future<void> handleBackgroundMessage(RemoteMessage message) async {
     WidgetsFlutterBinding.ensureInitialized();
-    await DefaultFirebaseOptions.loadEnv();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    await DefaultFirebaseOptions.initialize();
 
     debugPrint(
       '[PushNotification] background message: '
@@ -222,10 +219,26 @@ class PushNotificationService {
   }
 
   Future<void> _logPushTokens() async {
-    final apnsToken = Platform.isIOS
-        ? await FirebaseMessaging.instance.getAPNSToken()
-        : null;
-    final fcmToken = await FirebaseMessaging.instance.getToken();
+    String? apnsToken;
+    String? fcmToken;
+
+    try {
+      if (Platform.isIOS) {
+        apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+      }
+      fcmToken = await FirebaseMessaging.instance.getToken();
+    } on FirebaseException catch (e, stack) {
+      Log.e('Failed to get FCM token: ${e.code} ${e.message}\n$stack');
+      debugPrint(
+        '[PushNotification] FCM token error: ${e.code} — ${e.message}',
+      );
+      _logFcmSetupHints(e);
+      return;
+    } catch (e, stack) {
+      Log.e('Failed to get FCM token: $e\n$stack');
+      debugPrint('[PushNotification] FCM token error: $e');
+      return;
+    }
 
     Log.d('Push tokens — APNS: $apnsToken | FCM: $fcmToken');
     debugPrint(
@@ -236,12 +249,29 @@ class PushNotificationService {
     if (Platform.isIOS && (apnsToken == null || apnsToken.isEmpty)) {
       Log.w(
         'APNS token is missing. Check Apple Push capability, provisioning profile, '
-        'and Firebase APNs p8 key (Team ID K473L5F2HG, bundle com.syankorolls.syankoapp).',
+        'and Firebase APNs key for bundle com.infocare.dataportalsurvey.',
       );
     }
     if (fcmToken == null || fcmToken.isEmpty) {
       Log.w('FCM token is missing. Push delivery will not work until this is set.');
     }
+  }
+
+  void _logFcmSetupHints(FirebaseException error) {
+    if (!Platform.isAndroid) return;
+
+    final message = error.message ?? '';
+    if (!message.contains('AUTHENTICATION_FAILED') &&
+        error.code != 'unknown') {
+      return;
+    }
+
+    Log.w(
+      'FCM AUTHENTICATION_FAILED on Android: add your debug SHA-1/SHA-256 in '
+      'Firebase Console → Project settings → Your apps → Android, ensure '
+      'Firebase Installations API is enabled, and verify API key restrictions '
+      'allow this app (com.infocare.dataportalsurvey).',
+    );
   }
 
   Future<void> requestPermissionsAndSaveToken() async {
@@ -254,10 +284,19 @@ class PushNotificationService {
   }
 
   Future<String?> getToken() async {
-    if (Platform.isIOS) {
-      await _waitForApnsToken();
+    try {
+      if (Platform.isIOS) {
+        await _waitForApnsToken();
+      }
+      return await FirebaseMessaging.instance.getToken();
+    } on FirebaseException catch (e, stack) {
+      Log.e('Failed to get FCM token: ${e.code} ${e.message}\n$stack');
+      _logFcmSetupHints(e);
+      return null;
+    } catch (e, stack) {
+      Log.e('Failed to get FCM token: $e\n$stack');
+      return null;
     }
-    return FirebaseMessaging.instance.getToken();
   }
 
   Future<void> saveTokenToServer() =>

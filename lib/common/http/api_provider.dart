@@ -92,6 +92,28 @@ class ApiProvider {
     }
   }
 
+  // ── Multipart POST ──────────────────────────────────────────────────────
+
+  Future<Map<String, dynamic>> postMultipart(
+    String path,
+    FormData formData, {
+    Map<String, String>? headers,
+  }) async {
+    try {
+      final response = await _dioClient.post(
+        "${_env.baseUrl}/$path",
+        data: formData,
+        options: Options(
+          headers: headers,
+          contentType: 'multipart/form-data',
+        ),
+      );
+      return _handleResponse(response);
+    } on DioException catch (e) {
+      throw _handleDioException(e);
+    }
+  }
+
   // ── DELETE Request ──────────────────────────────────────────────────────
 
   Future<Map<String, dynamic>> delete(

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:data_portal_survey/common/http/api_provider.dart';
@@ -19,10 +20,18 @@ class PushTokenRepository {
     : _apiProvider = NotificationApiProvider(apiProvider: apiProvider);
 
   Future<String?> getToken() async {
-    if (Platform.isIOS) {
-      await _waitForApnsToken();
+    try {
+      if (Platform.isIOS) {
+        await _waitForApnsToken();
+      }
+      return await FirebaseMessaging.instance.getToken();
+    } on FirebaseException catch (e, stack) {
+      Log.e('Failed to get FCM token: ${e.code} ${e.message}\n$stack');
+      return null;
+    } catch (e, stack) {
+      Log.e('Failed to get FCM token: $e\n$stack');
+      return null;
     }
-    return FirebaseMessaging.instance.getToken();
   }
 
   Future<void> _waitForApnsToken({

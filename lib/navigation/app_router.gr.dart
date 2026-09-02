@@ -157,6 +157,22 @@ class HelpSupportRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HouseholdSurveyScreen]
+class HouseholdSurveyRoute extends PageRouteInfo<void> {
+  const HouseholdSurveyRoute({List<PageRouteInfo>? children})
+    : super(HouseholdSurveyRoute.name, initialChildren: children);
+
+  static const String name = 'HouseholdSurveyRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HouseholdSurveyScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [LanguageSelectionScreen]
 class LanguageSelectionRoute extends PageRouteInfo<void> {
   const LanguageSelectionRoute({List<PageRouteInfo>? children})
@@ -504,6 +520,53 @@ class SupportTicketSuccessRouteArgs {
 
   @override
   int get hashCode => key.hashCode ^ ticketDisplay.hashCode;
+}
+
+/// generated route for
+/// [SurveyCollectScreen]
+class SurveyCollectRoute extends PageRouteInfo<SurveyCollectRouteArgs> {
+  SurveyCollectRoute({
+    Key? key,
+    required String formId,
+    List<PageRouteInfo>? children,
+  }) : super(
+         SurveyCollectRoute.name,
+         args: SurveyCollectRouteArgs(key: key, formId: formId),
+         initialChildren: children,
+       );
+
+  static const String name = 'SurveyCollectRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SurveyCollectRouteArgs>();
+      return SurveyCollectScreen(key: args.key, formId: args.formId);
+    },
+  );
+}
+
+class SurveyCollectRouteArgs {
+  const SurveyCollectRouteArgs({this.key, required this.formId});
+
+  final Key? key;
+
+  final String formId;
+
+  @override
+  String toString() {
+    return 'SurveyCollectRouteArgs{key: $key, formId: $formId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SurveyCollectRouteArgs) return false;
+    return key == other.key && formId == other.formId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ formId.hashCode;
 }
 
 /// generated route for

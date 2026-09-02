@@ -6,11 +6,11 @@ class HouseholdSurveyState extends Equatable {
   final Map<String, String> errors;
   final bool isSubmitting;
 
-  const HouseholdSurveyState({
+  HouseholdSurveyState({
     required this.draft,
-    this.errors = {},
+    Map<String, String>? errors,
     this.isSubmitting = false,
-  });
+  }) : errors = errors ?? <String, String>{};
 
   HouseholdSurveyState copyWith({
     HouseholdSurveyDraft? draft,
@@ -20,7 +20,7 @@ class HouseholdSurveyState extends Equatable {
   }) {
     return HouseholdSurveyState(
       draft: draft ?? this.draft,
-      errors: clearErrors ? {} : errors ?? this.errors,
+      errors: clearErrors ? <String, String>{} : errors ?? this.errors,
       isSubmitting: isSubmitting ?? this.isSubmitting,
     );
   }
