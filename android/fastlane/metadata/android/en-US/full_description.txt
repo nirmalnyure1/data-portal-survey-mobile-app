@@ -1,0 +1,1 @@
+Data Portal Survey is the mobile app for collecting and submitting survey responses in the field.

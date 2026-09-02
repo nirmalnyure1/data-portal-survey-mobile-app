@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "910989560751",
+    "project_id": "data-portal-2c403",
+    "storage_bucket": "data-portal-2c403.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910989560751:android:f6cd4862807114ac4c3d5a",
+        "android_client_info": {
+          "package_name": "com.infocare.dataportalsurvey"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVd7ADQRd5LgOLPmgrGaXVbF7fVxOV-iY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

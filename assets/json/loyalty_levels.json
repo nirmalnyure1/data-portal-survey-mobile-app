@@ -1,0 +1,8 @@
+{
+  "levels": [
+    { "name": "Bronze", "minPoints": 0 },
+    { "name": "Silver", "minPoints": 2500 },
+    { "name": "Gold", "minPoints": 10000 },
+    { "name": "Platinum", "minPoints": 20000 }
+  ]
+}
