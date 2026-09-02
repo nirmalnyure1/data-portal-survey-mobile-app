@@ -21,18 +21,17 @@ class SignupScreen extends StatelessWidget {
             // The custom RichText Title stays fixed, no animation or hiding logic!
             Text.rich(
               TextSpan(
-                text: "Join Syanko & start",
-                // Using headlineSmall (size 24) from common text styles
+                text: 'Create your account to',
                 style: ThemeTextStyles.headlineSmall.copyWith(
                   fontWeight: FontWeight.bold,
                   height: 1.3,
                 ),
                 children: const [
                   TextSpan(
-                    text: " earning\n",
+                    text: ' collect\n',
                     style: TextStyle(color: ThemeColors.primaryColor),
                   ),
-                  TextSpan(text: 'rewards.'),
+                  TextSpan(text: 'survey data.'),
                 ],
               ),
             ),

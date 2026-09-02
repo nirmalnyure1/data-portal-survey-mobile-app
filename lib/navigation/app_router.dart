@@ -21,6 +21,7 @@ import 'package:data_portal_survey/features/onboard/ui/page/splash_screen.dart';
 import 'package:data_portal_survey/features/profile/ui/page/edit_profile_screen.dart';
 import 'package:data_portal_survey/features/support/ui/screen/help_support_screen.dart';
 import 'package:data_portal_survey/features/support/ui/screen/support_ticket_success_screen.dart';
+import 'package:data_portal_survey/features/survey/ui/page/household_survey_screen.dart';
 import 'package:data_portal_survey/features/survey/ui/page/survey_list_screen.dart';
 
 part 'app_router.gr.dart';
@@ -42,6 +43,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: NotificationPermissionRoute.page),
     AutoRoute(page: DashboardRoute.page),
     AutoRoute(page: SurveyListRoute.page),
+    AutoRoute(page: HouseholdSurveyRoute.page),
     AutoRoute(page: SettingsRoute.page),
     AutoRoute(page: NotificationInboxRoute.page),
     AutoRoute(page: AboutRoute.page),

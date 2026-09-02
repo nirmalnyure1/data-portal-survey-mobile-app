@@ -11,6 +11,7 @@ import 'package:data_portal_survey/features/notification/resource/all_notificati
 import 'package:data_portal_survey/features/notification/resource/notification_repository.dart';
 import 'package:data_portal_survey/features/profile/resource/profile_repository.dart';
 import 'package:data_portal_survey/features/support/resource/support_repository.dart';
+import 'package:data_portal_survey/features/survey/resource/survey_repository.dart';
 
 class MultiRepositoryWrapper extends StatelessWidget {
   final Widget child;
@@ -79,6 +80,12 @@ class MultiRepositoryWrapper extends StatelessWidget {
         ),
         RepositoryProvider<EngagementRepository>(
           create: ((context) => EngagementRepository(
+            apiProvider: RepositoryProvider.of<ApiProvider>(context),
+          )),
+          lazy: true,
+        ),
+        RepositoryProvider<SurveyRepository>(
+          create: ((context) => SurveyRepository(
             apiProvider: RepositoryProvider.of<ApiProvider>(context),
           )),
           lazy: true,
